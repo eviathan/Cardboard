@@ -4,6 +4,12 @@
     <ProjectReference Include="..\Cardboard.Core\Cardboard.Core.csproj" />
     <ProjectReference Include="..\Cardboard.Layout\Cardboard.Layout.csproj" />
     <ProjectReference Include="..\Cardboard.Renderer.Silk\Cardboard.Renderer.Silk.csproj" />
+    <ProjectReference Include="..\Cardboard.Engine\Cardboard.Engine.csproj" />
+    <ProjectReference Include="..\Cardboard.Templating.CSX\Cardboard.Templating.CSX.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1,0 +1,14 @@
+Test {
+    & Button {
+        &:Active {
+            BackgroundColour: Red;
+        }
+        &:Disabled {
+            BackgroundColour: Grey;
+        }
+    }
+    & TextBlock {
+        Colour: White;
+        BackgroundColour: Black;
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Cardbox Sandbox",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Cardboard.Sandbox",
+      "program": "${workspaceFolder}/Cardboard.Sandbox/bin/Debug/net9.0/Cardboard.Sandbox.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Cardboard.Sandbox",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}

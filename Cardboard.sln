@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Renderer.Silk", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Sandbox", "Cardboard.Sandbox\Cardboard.Sandbox.csproj", "{2DFE06EA-AB3F-4267-A806-F23B732B3281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Templating.CSX", "Cardboard.Templating.CSX\Cardboard.Templating.CSX.csproj", "{1DB19934-A763-477D-9335-F06905A4CD57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Tests.Unit", "Cardboard.Tests.Unit\Cardboard.Tests.Unit.csproj", "{4F300D18-A42A-45B0-B28B-1C15A3355D08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{2DFE06EA-AB3F-4267-A806-F23B732B3281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DFE06EA-AB3F-4267-A806-F23B732B3281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DFE06EA-AB3F-4267-A806-F23B732B3281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB19934-A763-477D-9335-F06905A4CD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB19934-A763-477D-9335-F06905A4CD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB19934-A763-477D-9335-F06905A4CD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB19934-A763-477D-9335-F06905A4CD57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F300D18-A42A-45B0-B28B-1C15A3355D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F300D18-A42A-45B0-B28B-1C15A3355D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F300D18-A42A-45B0-B28B-1C15A3355D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F300D18-A42A-45B0-B28B-1C15A3355D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
