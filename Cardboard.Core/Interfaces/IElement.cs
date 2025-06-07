@@ -8,8 +8,9 @@ namespace Cardboard.Core.Interfaces
     public interface IElement
     {
         IElement Parent { get; }
-        IReadOnlyList<IElement> Children { get; }
+        List<IElement> Children { get; }
         string? Key { get; }
         string ElementType { get; }
+        public Dictionary<string, object?> Properties { get; set; }
     }
 }

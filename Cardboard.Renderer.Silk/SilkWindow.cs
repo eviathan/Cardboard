@@ -6,6 +6,7 @@ using Silk.NET.OpenGL;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
+using IComponent = Cardboard.Core.Interfaces.IComponent;
 
 namespace Cardboard.Renderer.Silk
 {

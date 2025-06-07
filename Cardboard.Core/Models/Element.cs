@@ -13,7 +13,9 @@ namespace Cardboard.Core.Models
 
         public IElement Parent => _parent!;
 
-        public IReadOnlyList<IElement> Children => new ReadOnlyCollection<IElement>(_children);
+        public List<IElement> Children => new List<IElement>(_children);
+
+        public Dictionary<string, object?> Properties { get; set; } = [];
 
         public virtual string? Key { get; init; }
 

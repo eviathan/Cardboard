@@ -2,7 +2,7 @@ using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Components
 {
-    public class Stack<IProperties> : Component<IProperties>
+    public class Stack<IProperties> : Component
         where IProperties : class, new()
     {
         public override Element Render()

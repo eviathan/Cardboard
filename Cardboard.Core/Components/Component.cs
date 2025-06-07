@@ -1,19 +1,14 @@
+using Cardboard.Core.Interfaces;
 using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Components
 {
-    public abstract class Component : Component<object> { }
-    
-    public abstract class Component<TProperties> : Element
-        where TProperties : class, new()
+    public abstract class Component : Element, IComponent
     {
-        public TProperties? Properties { get; private set; }
+        public abstract IElement Render();
 
-        public abstract Element Render();
-
-        public void SetProperties(TProperties properties)
-        {
-            Properties = properties;
-        }
+        protected virtual void OnInit() { }
+        protected virtual void OnUpdate() { }
+        protected virtual void OnDispose() { }
     }
 }
