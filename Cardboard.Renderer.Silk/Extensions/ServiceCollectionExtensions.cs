@@ -8,7 +8,7 @@ namespace Cardboard.Renderer.Silk.Extensions
         public static IServiceCollection AddSilkRenderer(this IServiceCollection services)
         {
             services.AddSingleton<IRenderer, SilkRenderer>();
-            // services.AddSingleton<IWindowManager, SilkWindowManager>();
+            services.AddSingleton<IWindowManager, SilkWindowManager>();
 
             return services;
         }

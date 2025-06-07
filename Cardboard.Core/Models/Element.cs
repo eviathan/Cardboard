@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Cardboard.Core.Interfaces;
 
 namespace Cardboard.Core.Models
 {
-    public class Element
+    public class Element : IElement
     {
         
     }

@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Cardboard.Core.Models;
 using Cardboard.Core.Models.Events;
 
@@ -13,7 +15,8 @@ namespace Cardboard.Core.Interfaces
         // event EventHandler<InputEventArgs> InputReceived;
         // event EventHandler Resized;
 
-        // void Show();
-        // void Close();
+        void SetRootComponent(IComponent component);
+        void Show();
+        void Close();
     }
 }

@@ -32,15 +32,4 @@ namespace Cardboard.Engine
         public static AppHostBuilder CreateBuilder() => new();
     }
 
-    // public static class AppHost
-    // {
-    //     // public static void Configure(IServiceProvider)
-
-    //     public static void Run<TComponent, TProperties>()
-    //         where TComponent : Component<TProperties>, new()
-    //         where TProperties : class, new()
-    //     {
-
-    //     }
-    // }
 }
