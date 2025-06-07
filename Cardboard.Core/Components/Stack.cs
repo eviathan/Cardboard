@@ -2,11 +2,12 @@ using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Components
 {
-    public class Stack<IProperties> : Component<PropertiesWithChildren<IProperties>>
+    public class Stack<IProperties> : Component<IProperties>
+        where IProperties : class, new()
     {
         public override Element Render()
         {
-            return null;
+            return new Element();
             // throw new NotImplementedException();
             // return new Element(nameof(Stack), Properties: Properties);
         }

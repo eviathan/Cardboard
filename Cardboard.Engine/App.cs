@@ -17,7 +17,7 @@ namespace Cardboard.Engine
 
         public void Run()
         {
-            _window.Show();
+            _window?.Show();
         }
 
         public void Exit()
