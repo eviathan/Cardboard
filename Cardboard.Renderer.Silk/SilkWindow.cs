@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Silk.NET.Windowing;
 using Silk.NET.Maths;
 using Cardboard.Core.Interfaces;
+using Silk.NET.OpenGL;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
@@ -17,6 +18,8 @@ namespace Cardboard.Renderer.Silk
         private readonly ISilkWindow? _window;
         private readonly IRenderer? _renderer;
         private IComponent? _rootComponent;
+
+        private GL? _gl;
 
         public SilkWindow(string title, int width, int height)
         {
@@ -55,12 +58,20 @@ namespace Cardboard.Renderer.Silk
 
         private void OnLoad()
         {
+            if (_window is null) return;
+            _gl = GL.GetApi(_window);
+
+            _gl.ClearColor(0f, 0f, 0f, 1f);
+    
             // _renderer.Initialize(_window); // You can pass in Silk.NET GLContext, etc.
             // _renderer.SetRootComponent(_root);
         }
 
         private void OnRender(double delta)
         {
+            if (_gl == null) return;
+
+            _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             // _renderer.RenderFrame(delta);
         }
     }
