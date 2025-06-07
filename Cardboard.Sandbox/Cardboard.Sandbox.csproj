@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cardboard.Core\Cardboard.Core.csproj" />
+    <ProjectReference Include="..\Cardboard.Layout\Cardboard.Layout.csproj" />
+    <ProjectReference Include="..\Cardboard.Renderer.Silk\Cardboard.Renderer.Silk.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
