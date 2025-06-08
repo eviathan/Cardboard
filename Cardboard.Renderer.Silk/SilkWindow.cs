@@ -91,11 +91,11 @@ namespace Cardboard.Renderer.Silk
 
             #region Code for later
             // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
-            // if (OperatingSystem.IsMacOS())
-            // {
-            //     var nativeHandle = _window.Native!.Cocoa;
-            //     MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
-            // }
+            if (OperatingSystem.IsMacOS())
+            {
+                var nativeHandle = _window.Native!.Cocoa;
+                MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
+            }
             #endregion
 
             _drawingContext.Initialise(GL.GetApi(_window));
