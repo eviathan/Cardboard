@@ -10,7 +10,7 @@ namespace Cardboard.Renderer.Silk
             Console.WriteLine("Renderer Initialised");
         }
 
-        public void Render(IElement root, double delta)
+        public void Render(IEnumerable<IRenderableElement> root, double delta)
         {
             // Console.WriteLine("Renderer Render");
         }

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Tests.Unit", "Car
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Engine", "Cardboard.Engine\Cardboard.Engine.csproj", "{5210DC51-CCF2-4E2A-AEC5-86D7C3A211EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cardboard.Extensions", "Cardboard.Extensions\Cardboard.Extensions.csproj", "{24D96D1F-FB3B-4E1B-8D16-78ABC5188A71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{5210DC51-CCF2-4E2A-AEC5-86D7C3A211EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5210DC51-CCF2-4E2A-AEC5-86D7C3A211EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5210DC51-CCF2-4E2A-AEC5-86D7C3A211EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24D96D1F-FB3B-4E1B-8D16-78ABC5188A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24D96D1F-FB3B-4E1B-8D16-78ABC5188A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24D96D1F-FB3B-4E1B-8D16-78ABC5188A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24D96D1F-FB3B-4E1B-8D16-78ABC5188A71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

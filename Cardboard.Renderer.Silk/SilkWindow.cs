@@ -20,7 +20,8 @@ namespace Cardboard.Renderer.Silk
         private readonly int _height;
 
         private readonly ISilkWindow? _window;
-        private readonly IRenderer? _renderer;
+        private readonly IRenderer _renderer;
+        private readonly ILayoutManager _layoutManager;
         private IComponent? _rootComponent;
 
         private GL? _gl;
@@ -36,9 +37,10 @@ namespace Cardboard.Renderer.Silk
             }
         }
 
-        public SilkWindow(string title, int width, int height, IRenderer renderer)
+        public SilkWindow(string title, int width, int height, IRenderer renderer, ILayoutManager layoutManager)
         {
             _title = title ?? throw new ArgumentNullException(nameof(title));
+            _layoutManager = layoutManager ?? throw new ArgumentNullException(nameof(layoutManager));
             _renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
             _width = width;
             _height = height;
@@ -98,10 +100,13 @@ namespace Cardboard.Renderer.Silk
 
         private void OnRender(double delta)
         {
-            if (_gl == null) return;
+            if (_gl == null || _window == null) return;
 
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            _renderer.Render(_rootComponent as IElement, delta);
+
+            var availableSize = new Size(_window.Size.X, _window.Size.Y);
+            var renderableElements = _layoutManager.Layout(_rootComponent, availableSize);
+            _renderer.Render(renderableElements, delta);
         }
 
         private void OnResize(Vector2D<int> newSize)

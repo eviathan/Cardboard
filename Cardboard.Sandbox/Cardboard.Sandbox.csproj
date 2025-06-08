@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Cardboard.Renderer.Silk\Cardboard.Renderer.Silk.csproj" />
     <ProjectReference Include="..\Cardboard.Engine\Cardboard.Engine.csproj" />
     <ProjectReference Include="..\Cardboard.Templating.CSX\Cardboard.Templating.CSX.csproj" />
+    <ProjectReference Include="..\Cardboard.Extensions\Cardboard.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

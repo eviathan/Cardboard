@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Interfaces
 {
@@ -11,6 +8,7 @@ namespace Cardboard.Core.Interfaces
         List<IElement> Children { get; }
         string? Key { get; }
         string ElementType { get; }
+        Rectangle Frame { get; init; }
         public Dictionary<string, object?> Properties { get; set; }
     }
 }

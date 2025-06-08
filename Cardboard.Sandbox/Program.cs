@@ -3,7 +3,7 @@ using Cardboard.Engine;
 using Cardboard.Renderer.Silk.Extensions;
 using Cardboard.Templating.CSX.Extensions;
 using Cardboard.Sandbox.Components;
-using Cardboard.Renderer.Engine.Extensions;
+using Cardboard.Extensions;
 
 namespace Cardboard.Sandbox
 {
@@ -17,7 +17,7 @@ namespace Cardboard.Sandbox
                 {
                     services.AddCardboard();
                     services.AddSilkRenderer();
-                    services.AddCardboardCSXTemplator();
+                    services.AddCardboardCSXTemplating();
                 })
                 .Build();
 

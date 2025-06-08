@@ -21,6 +21,8 @@ namespace Cardboard.Core.Models
 
         public virtual string ElementType => GetType().Name;
 
+        public Rectangle Frame { get; init; }
+
         public void AddChild(IElement child)
         {
             if (child == null)

@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Interfaces
 {
     public interface ILayoutManager
     {
-        
+        IReadOnlyList<IRenderableElement> Layout(IComponent root, Size availableSize);
     }
 }
