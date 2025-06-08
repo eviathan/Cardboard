@@ -6,10 +6,14 @@ namespace Cardboard.Core.Factories
 {
     public abstract class ElementRendererFactory : IElementRendererFactory
     {
+        private readonly IServiceProvider _serviceProvider;
+
         protected Dictionary<Type, IElementRenderer> Renderers { get; set; } = [];
 
-        public ElementRendererFactory()
+        public ElementRendererFactory(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+
             RegisterRenderers();
         }
 
@@ -31,6 +35,7 @@ namespace Cardboard.Core.Factories
         {
             var assembly = GetTargetAssembly();
 
+            // TODO: Handle exceptions properly when looking for renderers
             foreach (var type in assembly.GetTypes())
             {
                 if (!typeof(IElementRenderer).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface)
@@ -44,15 +49,9 @@ namespace Cardboard.Core.Factories
                     continue;
 
                 var targetType = attributeData.AttributeType.GetGenericArguments().First();
+                var renderer = (_serviceProvider.GetService(type) as IElementRenderer)!;
 
-                if (Activator.CreateInstance(type) is IElementRenderer instance)
-                {
-                    Renderers[targetType] = instance;
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Could not instantiate renderer: {type.FullName}");
-                }
+                Renderers[targetType] = renderer;
             }
         }
     }

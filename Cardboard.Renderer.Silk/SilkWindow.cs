@@ -1,10 +1,8 @@
-using System.ComponentModel;
 using Silk.NET.Windowing;
 using Silk.NET.Maths;
 using Cardboard.Core.Interfaces;
 using Silk.NET.OpenGL;
 using Cardboard.Core.Models;
-using Silk.NET.Core.Native;
 using Cardboard.Renderer.Silk.WindowCustomisers;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
@@ -17,16 +15,16 @@ namespace Cardboard.Renderer.Silk
     {
         public Guid Id { get; } = Guid.NewGuid();
 
+        private readonly ISilkWindow? _window;
+        private readonly IRenderer _renderer;
+        private readonly ILayoutManager _layoutManager;
+        private readonly IDrawingContext<GL> _drawingContext;
+
         private readonly string _title;
         private readonly int _width;
         private readonly int _height;
 
-        private readonly ISilkWindow? _window;
-        private readonly IRenderer _renderer;
-        private readonly ILayoutManager _layoutManager;
         private IComponent? _rootComponent;
-
-        private GL? _gl;
 
         public IntPtr NativeHandle
         {
@@ -39,11 +37,13 @@ namespace Cardboard.Renderer.Silk
             }
         }
 
-        public SilkWindow(string title, int width, int height, IRenderer renderer, ILayoutManager layoutManager)
+        public SilkWindow(string title, int width, int height, IRenderer renderer, ILayoutManager layoutManager, IDrawingContext<GL> drawingContext)
         {
             _title = title ?? throw new ArgumentNullException(nameof(title));
             _layoutManager = layoutManager ?? throw new ArgumentNullException(nameof(layoutManager));
             _renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
+            _drawingContext = drawingContext ?? throw new ArgumentNullException(nameof(drawingContext));
+
             _width = width;
             _height = height;
 
@@ -96,19 +96,20 @@ namespace Cardboard.Renderer.Silk
             }
             #endregion
 
-            _gl = GL.GetApi(_window);
+            _drawingContext.Initialise(GL.GetApi(_window));
+
             // _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
-            _gl.ClearColor(0.73f, 0.75f, 0.78f, 1f);
+            _drawingContext.API.ClearColor(0.73f, 0.75f, 0.78f, 1f);
     
             _renderer.Initialise(NativeHandle);
         }
 
         private void OnRender(double delta)
         {
-            if (_gl == null || _window == null || _rootComponent == null)
+            if (_drawingContext.API == null || _window == null || _rootComponent == null)
                 return;
 
-            _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            _drawingContext.API.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             var availableSize = new Size(_window.Size.X, _window.Size.Y);
             var renderableElements = _layoutManager.Layout(_rootComponent, availableSize);
