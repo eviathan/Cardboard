@@ -89,15 +89,16 @@ namespace Cardboard.Renderer.Silk
 
             #region Code for later
             // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
-            // if (OperatingSystem.IsMacOS())
-            // {
-            //     var nativeHandle = _window.Native!.Cocoa;
-            //     MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
-            // }
+            if (OperatingSystem.IsMacOS())
+            {
+                var nativeHandle = _window.Native!.Cocoa;
+                MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
+            }
             #endregion
 
             _gl = GL.GetApi(_window);
-            _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
+            // _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
+            _gl.ClearColor(0.73f, 0.75f, 0.78f, 1f);
     
             _renderer.Initialise(NativeHandle);
         }
@@ -117,7 +118,13 @@ namespace Cardboard.Renderer.Silk
 
         private void OnResize(Vector2D<int> newSize)
         {
-            _renderer.Resize(new Size(newSize.X, newSize.Y));
+            if (_rootComponent == null)
+                return;
+
+            var size = new Size(newSize.X, newSize.Y);
+            var renderableElements = _layoutManager.Layout(_rootComponent, size);
+            
+            _renderer.Resize(renderableElements, size);
         }
     }
 }

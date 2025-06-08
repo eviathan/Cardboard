@@ -5,7 +5,7 @@ namespace Cardboard.Templating.CSX.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCardboardCSXTemplating(this IServiceCollection services)
+        public static IServiceCollection WithCSXTemplating(this IServiceCollection services)
         {
             services.AddSingleton<ITemplator, CSXTemplator>();
             // services.AddSingleton<IWindowManager, SilkWindowManager>();

@@ -5,7 +5,7 @@ namespace Cardboard.Core.Interfaces
     public interface IRenderer : IDisposable
     {
         void Initialise(IntPtr nativeWindowHandle);
-        void Render(IEnumerable<IRenderableElement> root, double delta);
-        void Resize(Size newSize);
+        void Render(IEnumerable<IRenderableElement> elements, double delta);
+        void Resize(IEnumerable<IRenderableElement> elements, Size newSize);
     }
 }

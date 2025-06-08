@@ -15,20 +15,24 @@ namespace Cardboard.Sandbox
                 .CreateBuilder()
                 .ConfigureServices(services =>
                 {
-                    services.AddCardboard();
-                    services.AddSilkRenderer();
-                    services.AddCardboardCSXTemplating();
+                    services
+                        .AddCardboard()
+                        .WithSilkRenderer()
+                        .WithCSXTemplating();
                 })
                 .Build();
 
             host.Run(
                 (options) =>
                 {
-                    options.Title = "Woooterpooter!";
-                    options.Width = 900;
-                    options.Height = 900;
+                    options.Width = 1280;
+                    options.Height = 700;
 
                     options.SetRootComponent<RootComponent>();
+                },
+                () =>
+                { 
+                    Console.WriteLine("App stopping...");
                 }
             );
         }

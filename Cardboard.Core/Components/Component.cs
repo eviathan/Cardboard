@@ -1,5 +1,5 @@
 using Cardboard.Core.Interfaces;
-using Cardboard.Core.Models;
+using Cardboard.Core.Models.Elements;
 
 namespace Cardboard.Core.Components
 {

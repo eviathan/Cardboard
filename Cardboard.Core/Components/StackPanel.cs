@@ -1,9 +1,9 @@
-using Cardboard.Core.Components;
 using Cardboard.Core.Interfaces;
+using Cardboard.Core.Models;
 
-namespace Cardboard.Sandbox.Components
+namespace Cardboard.Core.Components
 {
-    public class RootComponent : Component
+    public class StackPanel : Component
     {
         public override IElement Render()
         {

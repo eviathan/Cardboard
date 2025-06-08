@@ -9,9 +9,9 @@ namespace Cardboard.Engine
         public IWindowManager WindowManager => _services.GetRequiredService<IWindowManager>();
         public ITreeManager TreeManager => _services.GetRequiredService<ITreeManager>();
         public IRenderer Renderer => _services.GetRequiredService<IRenderer>();
-        public IApp App => _services.GetRequiredService<IApp>();
+        public IApp App => _services.GetRequiredService<IApp>(); // NOTE NOT CURRENTLY IN USE BUT WILL USER FACING APP API
 
-        private IComponent _rootComponent { get; set; }
+        private IComponent _rootComponent { get; set; } = null!;
         private ApplicationOptions ApplicationOptions { get; } = new();
 
         public AppHost(IServiceProvider services)
@@ -30,12 +30,17 @@ namespace Cardboard.Engine
 
             TreeManager.SetRoot((IElement)_rootComponent);
 
-            var window = WindowManager.CreateWindow(string.Empty, 1200, 800, _rootComponent);
-            window.Show();
+            var window = WindowManager.CreateWindow(
+                ApplicationOptions.Title,
+                ApplicationOptions.Width,
+                ApplicationOptions.Height,
+                _rootComponent
+            );
 
             Renderer.Initialise(window.NativeHandle);
 
-            Console.WriteLine("App stopping...");
+            window.Show();
+            
             onStop?.Invoke();
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Cardboard.Core.Interfaces;
 
-namespace Cardboard.Core.Models
+namespace Cardboard.Core.Models.Elements
 {
     public class Element : IElement
     {
