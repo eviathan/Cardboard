@@ -3,13 +3,13 @@ using Silk.NET.Windowing;
 using Silk.NET.Maths;
 using Cardboard.Core.Interfaces;
 using Silk.NET.OpenGL;
+using Cardboard.Core.Models;
+using Silk.NET.Core.Native;
 using Cardboard.Renderer.Silk.WindowCustomisers;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
 using IComponent = Cardboard.Core.Interfaces.IComponent;
-using Silk.NET.Core.Native;
-using Cardboard.Core.Models;
 
 namespace Cardboard.Renderer.Silk
 {
@@ -30,13 +30,9 @@ namespace Cardboard.Renderer.Silk
             get
             {
                 if (OperatingSystem.IsMacOS())
-                {
                     return _window!.Native?.Cocoa ?? IntPtr.Zero;
-                }
                 else
-                {
                     throw new PlatformNotSupportedException("NativeHandle only implemented for macOS");
-                }
             }
         }
 
@@ -58,7 +54,7 @@ namespace Cardboard.Renderer.Silk
 
         public void Close()
         {
-            throw new NotImplementedException();
+            _window.Close();
         }
 
         public void SetRootComponent(IComponent component)
@@ -73,8 +69,14 @@ namespace Cardboard.Renderer.Silk
                 _window.Load += OnLoad;
                 _window.Render += OnRender;
                 _window.Resize += OnResize;
+                _window.Closing += OnClosing;
                 _window.Run();       
             }
+        }
+
+        private void OnClosing()
+        {
+            Console.WriteLine("Window Closed!");
         }
 
         private void OnLoad()
@@ -99,7 +101,7 @@ namespace Cardboard.Renderer.Silk
             if (_gl == null) return;
 
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            _renderer.Render(_rootComponent as IElement);
+            _renderer.Render(_rootComponent as IElement, delta);
         }
 
         private void OnResize(Vector2D<int> newSize)

@@ -10,19 +10,19 @@ namespace Cardboard.Renderer.Silk
             Console.WriteLine("Renderer Initialised");
         }
 
-        public void Render(IElement root)
+        public void Render(IElement root, double delta)
         {
-            Console.WriteLine("Renderer Render");
+            // Console.WriteLine("Renderer Render");
         }
 
         public void Resize(Size newSize)
         {
-            Console.WriteLine("Renderer Resize");
+            // Console.WriteLine("Renderer Resize");
         }
         
         public void Dispose()
         {
-            Console.WriteLine("Disposed");
+            // Console.WriteLine("Disposed");
         }
     }
 }
