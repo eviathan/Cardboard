@@ -29,6 +29,26 @@ namespace Cardboard.Layout
                             Height = 100
                         }
                     }
+                },
+                new BoxRenderableElement
+                {
+                    Element = new StackPanel
+                    {
+
+                    },
+                    Frame = new Rectangle
+                    {
+                        Position = new Vector2D
+                        {
+                            X = 150,
+                            Y = 50
+                        },
+                        Size = new Size
+                        {
+                            Width = 400,
+                            Height = 200
+                        }
+                    }
                 }
             ];
         }

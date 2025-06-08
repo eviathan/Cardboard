@@ -2,6 +2,7 @@ using Cardboard.Core.Attributes;
 using Cardboard.Core.Interfaces;
 using Cardboard.Core.Models.Elements.RenderableElements;
 using Silk.NET.OpenGL;
+using System.Numerics;
 
 namespace Cardboard.Renderer.Silk.ElementRenderers
 {
@@ -56,9 +57,11 @@ namespace Cardboard.Renderer.Silk.ElementRenderers
 
             layout (location = 0) in vec3 aPosition;
 
+            uniform mat4 uTransform;
+
             void main()
             {
-                gl_Position = vec4(aPosition, 1.0);
+                gl_Position = uTransform * vec4(aPosition, 1.0);
             }";
 
             const string fragmentCode = @"
@@ -115,11 +118,45 @@ namespace Cardboard.Renderer.Silk.ElementRenderers
             _drawingContext.API.BindBuffer(BufferTargetARB.ElementArrayBuffer, 0);
         }
 
+
         public unsafe void Render(IRenderableElement element)
         {
-            _drawingContext.API.BindVertexArray(_vao);
-            _drawingContext.API.UseProgram(_program);
-            _drawingContext.API.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (void*) 0);
+            var frame = element.Frame;
+            var gl = _drawingContext.API;
+
+            var viewport = new int[4];
+            gl.GetInteger(GetPName.Viewport, viewport);
+            float screenWidth = viewport[2];
+            float screenHeight = viewport[3];
+
+            float x = (float)frame.Position.X;
+            float y = (float)frame.Position.Y;
+            float width = (float)frame.Size.Width;
+            float height = (float)frame.Size.Height;
+
+            // Convert to Normalized Device Coordinates
+            float scaleX = width / screenWidth;
+            float scaleY = height / screenHeight;
+
+            float posX = ((x / screenWidth) * 2f) - 1f + scaleX;
+            float posY = 1f - ((y / screenHeight) * 2f) - scaleY;
+
+            // Scale then translate
+            Matrix4x4 transform =
+                Matrix4x4.CreateScale(scaleX, scaleY, 1.0f) *
+                Matrix4x4.CreateTranslation(posX, posY, 0.0f);
+
+            int location = gl.GetUniformLocation(_program, "uTransform");
+
+            if (location == -1)
+                throw new Exception("Could not find uTransform uniform");
+
+            gl.UseProgram(_program);
+            gl.UniformMatrix4(location, 1, false, (float*)&transform);
+
+            gl.BindVertexArray(_vao);
+            gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (void*)0);
         }
+
     }
 }

@@ -2,13 +2,12 @@ using Silk.NET.Windowing;
 using Silk.NET.Maths;
 using Cardboard.Core.Interfaces;
 using Silk.NET.OpenGL;
-using Cardboard.Core.Models;
+using System.Drawing;
 using Cardboard.Renderer.Silk.WindowCustomisers;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
 using IComponent = Cardboard.Core.Interfaces.IComponent;
-using System.Drawing;
 using Size = Cardboard.Core.Models.Size;
 
 namespace Cardboard.Renderer.Silk
@@ -92,14 +91,15 @@ namespace Cardboard.Renderer.Silk
 
             #region Code for later
             // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
-            if (OperatingSystem.IsMacOS())
-            {
-                var nativeHandle = _window.Native!.Cocoa;
-                MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
-            }
+            // if (OperatingSystem.IsMacOS())
+            // {
+            //     var nativeHandle = _window.Native!.Cocoa;
+            //     MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
+            // }
             #endregion
 
             _drawingContext.Initialise(GL.GetApi(_window));
+            _drawingContext.API.Viewport(0, 0, (uint)_window.Size.X, (uint)_window.Size.Y);
 
             // _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
             // _drawingContext.API.ClearColor(0.73f, 0.75f, 0.78f, 1f);
@@ -126,8 +126,10 @@ namespace Cardboard.Renderer.Silk
 
         private void OnResize(Vector2D<int> newSize)
         {
-            if (_rootComponent == null)
+            if (_drawingContext.API == null || _rootComponent == null)
                 return;
+
+            _drawingContext.API.Viewport(0, 0, (uint)newSize.X, (uint)newSize.Y);
 
             var size = new Size(newSize.X, newSize.Y);
             var renderableElements = _layoutManager.Layout(_rootComponent, size);
