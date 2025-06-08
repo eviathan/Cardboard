@@ -12,9 +12,13 @@ namespace Cardboard.Renderer.Silk
             _elementRendererFactory = elementRendererFactory ?? throw new ArgumentNullException(nameof(elementRendererFactory));
         }
 
-        public void Initialise(nint nativeWindowHandle)
+        public void Initialise(IEnumerable<IRenderableElement> elements, nint nativeWindowHandle)
         {
-            Console.WriteLine("Renderer Initialised");
+            foreach (var element in elements)
+            {
+                var renderer = _elementRendererFactory.GetElementRenderer(element);
+                renderer.Initialise(element);
+            }
         }
 
         public void Render(IEnumerable<IRenderableElement> elements, double delta)

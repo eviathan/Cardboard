@@ -8,6 +8,8 @@ using Cardboard.Renderer.Silk.WindowCustomisers;
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
 using IComponent = Cardboard.Core.Interfaces.IComponent;
+using System.Drawing;
+using Size = Cardboard.Core.Models.Size;
 
 namespace Cardboard.Renderer.Silk
 {
@@ -99,9 +101,13 @@ namespace Cardboard.Renderer.Silk
             _drawingContext.Initialise(GL.GetApi(_window));
 
             // _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
-            _drawingContext.API.ClearColor(0.73f, 0.75f, 0.78f, 1f);
+            // _drawingContext.API.ClearColor(0.73f, 0.75f, 0.78f, 1f);
+            _drawingContext.API.ClearColor(Color.CornflowerBlue);
     
-            _renderer.Initialise(NativeHandle);
+            var availableSize = new Size(_window.Size.X, _window.Size.Y);
+            var renderableElements = _layoutManager.Layout(_rootComponent, availableSize);
+
+            _renderer.Initialise(renderableElements, NativeHandle);
         }
 
         private void OnRender(double delta)

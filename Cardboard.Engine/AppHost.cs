@@ -37,8 +37,6 @@ namespace Cardboard.Engine
                 _rootComponent
             );
 
-            Renderer.Initialise(window.NativeHandle);
-
             window.Show();
             
             onStop?.Invoke();

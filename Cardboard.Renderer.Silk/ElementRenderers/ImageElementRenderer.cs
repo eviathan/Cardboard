@@ -15,6 +15,11 @@ namespace Cardboard.Renderer.Silk.ElementRenderers
             _drawingContext = drawingContext ?? throw new ArgumentNullException(nameof(drawingContext));
         }
 
+        public void Initialise(IRenderableElement element)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Render(IRenderableElement element)
         {
             throw new NotImplementedException();

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <NoWarn>$(NoWarn);NU1903</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

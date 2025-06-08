@@ -25,8 +25,8 @@ namespace Cardboard.Layout
                         },
                         Size = new Size
                         {
-                            Width = 400,
-                            Height = 200
+                            Width = 100,
+                            Height = 100
                         }
                     }
                 }
