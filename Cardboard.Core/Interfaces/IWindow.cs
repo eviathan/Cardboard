@@ -7,6 +7,8 @@ namespace Cardboard.Core.Interfaces
 {
     public interface IWindow
     {
+        Guid Id { get; }
+
         // string Title { get; set; }
         // Size Size { get; set; }
 

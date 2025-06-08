@@ -15,6 +15,8 @@ namespace Cardboard.Renderer.Silk
 {
     public class SilkWindow : ICardboardWindow
     {
+        public Guid Id { get; } = Guid.NewGuid();
+
         private readonly string _title;
         private readonly int _width;
         private readonly int _height;
@@ -56,7 +58,7 @@ namespace Cardboard.Renderer.Silk
 
         public void Close()
         {
-            _window.Close();
+            _window?.Close();
         }
 
         public void SetRootComponent(IComponent component)
@@ -84,13 +86,15 @@ namespace Cardboard.Renderer.Silk
         private void OnLoad()
         {
             if (_window is null) return;
-            
+
+            #region Code for later
             // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
             // if (OperatingSystem.IsMacOS())
             // {
             //     var nativeHandle = _window.Native!.Cocoa;
             //     MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
             // }
+            #endregion
 
             _gl = GL.GetApi(_window);
             _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
@@ -100,12 +104,14 @@ namespace Cardboard.Renderer.Silk
 
         private void OnRender(double delta)
         {
-            if (_gl == null || _window == null) return;
+            if (_gl == null || _window == null || _rootComponent == null)
+                return;
 
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             var availableSize = new Size(_window.Size.X, _window.Size.Y);
             var renderableElements = _layoutManager.Layout(_rootComponent, availableSize);
+
             _renderer.Render(renderableElements, delta);
         }
 

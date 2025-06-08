@@ -9,7 +9,6 @@ namespace Cardboard.Renderer.Engine.Extensions
     {
         public static IServiceCollection AddCardboardEngine(this IServiceCollection services)
         {
-            services.AddSingleton<IApp, App>();
             services.AddSingleton<ITreeManager, TreeManager>();
 
             return services;

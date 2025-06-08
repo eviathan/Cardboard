@@ -5,6 +5,6 @@ namespace Cardboard.Core.Interfaces
         void Run();
         void Exit();
         void SetRootComponent<TComponent>(IWindow window)
-            where TComponent : IElement, new();
+            where TComponent : IComponent, new();
     }
 }

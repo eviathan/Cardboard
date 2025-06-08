@@ -22,15 +22,13 @@ namespace Cardboard.Sandbox
                 .Build();
 
             host.Run(
-                (host) =>
+                (options) =>
                 {
-                    Console.WriteLine("App starting...");
-                    var window = host.WindowManager.CreateWindow(string.Empty, 1200, 800);
-                    host.App.SetRootComponent<RootComponent>(window);
-                },
-                (host) =>
-                {
-                    Console.WriteLine("App stopping...");
+                    options.Title = "Woooterpooter!";
+                    options.Width = 900;
+                    options.Height = 900;
+
+                    options.SetRootComponent<RootComponent>();
                 }
             );
         }
