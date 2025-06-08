@@ -25,7 +25,7 @@ namespace Cardboard.Sandbox
                 (host) =>
                 {
                     Console.WriteLine("App starting...");
-                    var window = host.WindowManager.CreateWindow("Main", 1200, 800);
+                    var window = host.WindowManager.CreateWindow(string.Empty, 1200, 800);
                     host.App.SetRootComponent<RootComponent>(window);
                 },
                 (host) =>

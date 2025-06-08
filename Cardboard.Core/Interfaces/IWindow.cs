@@ -14,7 +14,7 @@ namespace Cardboard.Core.Interfaces
 
         // event EventHandler<InputEventArgs> InputReceived;
         // event EventHandler Resized;
-
+        IntPtr NativeHandle { get; }
         void SetRootComponent(IComponent component);
         void Show();
         void Close();

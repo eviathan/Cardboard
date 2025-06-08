@@ -5,24 +5,24 @@ namespace Cardboard.Renderer.Silk
 {
     public class SilkRenderer : IRenderer
     {
-        public void Dispose()
+        public void Initialise(nint nativeWindowHandle)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Initialize(nint nativeWindowHandle)
-        {
-            throw new NotImplementedException();
+            Console.WriteLine("Renderer Initialised");
         }
 
         public void Render(IElement root)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Renderer Render");
         }
 
         public void Resize(Size newSize)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Renderer Resize");
+        }
+        
+        public void Dispose()
+        {
+            Console.WriteLine("Disposed");
         }
     }
 }

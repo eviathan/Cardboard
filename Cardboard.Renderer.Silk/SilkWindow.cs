@@ -3,10 +3,13 @@ using Silk.NET.Windowing;
 using Silk.NET.Maths;
 using Cardboard.Core.Interfaces;
 using Silk.NET.OpenGL;
+using Cardboard.Renderer.Silk.WindowCustomisers;
 
 using ICardboardWindow = Cardboard.Core.Interfaces.IWindow;
 using ISilkWindow = Silk.NET.Windowing.IWindow;
 using IComponent = Cardboard.Core.Interfaces.IComponent;
+using Silk.NET.Core.Native;
+using Cardboard.Core.Models;
 
 namespace Cardboard.Renderer.Silk
 {
@@ -22,19 +25,35 @@ namespace Cardboard.Renderer.Silk
 
         private GL? _gl;
 
-        public SilkWindow(string title, int width, int height)
+        public IntPtr NativeHandle
+        {
+            get
+            {
+                if (OperatingSystem.IsMacOS())
+                {
+                    return _window!.Native?.Cocoa ?? IntPtr.Zero;
+                }
+                else
+                {
+                    throw new PlatformNotSupportedException("NativeHandle only implemented for macOS");
+                }
+            }
+        }
+
+        public SilkWindow(string title, int width, int height, IRenderer renderer)
         {
             _title = title ?? throw new ArgumentNullException(nameof(title));
+            _renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
             _width = width;
             _height = height;
 
-            var opts = WindowOptions.Default with
+            var windowOptions = WindowOptions.Default with
             {
                 Title = title,
                 Size = new Vector2D<int>(width, height)
             };
 
-            _window = Window.Create(opts);
+            _window = Window.Create(windowOptions);
         }
 
         public void Close()
@@ -53,6 +72,7 @@ namespace Cardboard.Renderer.Silk
             {
                 _window.Load += OnLoad;
                 _window.Render += OnRender;
+                _window.Resize += OnResize;
                 _window.Run();       
             }
         }
@@ -60,12 +80,18 @@ namespace Cardboard.Renderer.Silk
         private void OnLoad()
         {
             if (_window is null) return;
-            _gl = GL.GetApi(_window);
+            
+            // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
+            // if (OperatingSystem.IsMacOS())
+            // {
+            //     var nativeHandle = _window.Native!.Cocoa;
+            //     MacOsWindowCustomiser.EnableNativeDragAndTransparency(nativeHandle!.Value);
+            // }
 
-            _gl.ClearColor(0f, 0f, 0f, 1f);
+            _gl = GL.GetApi(_window);
+            _gl.ClearColor(.12f, 0.12f, 0.12f, 1f);
     
-            // _renderer.Initialize(_window); // You can pass in Silk.NET GLContext, etc.
-            // _renderer.SetRootComponent(_root);
+            _renderer.Initialise(NativeHandle);
         }
 
         private void OnRender(double delta)
@@ -73,7 +99,12 @@ namespace Cardboard.Renderer.Silk
             if (_gl == null) return;
 
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            // _renderer.RenderFrame(delta);
+            _renderer.Render(_rootComponent as IElement);
+        }
+
+        private void OnResize(Vector2D<int> newSize)
+        {
+            _renderer.Resize(new Size(newSize.X, newSize.Y));
         }
     }
 }
