@@ -1,4 +1,5 @@
-using System.Drawing;
+
+using Cardboard.Core.Models;
 
 namespace Cardboard.Core.Interfaces
 {

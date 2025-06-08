@@ -5,6 +5,13 @@ namespace Cardboard.Renderer.Silk
 {
     public class SilkRenderer : IRenderer
     {
+        private readonly IElementRendererFactory _elementRendererFactory;
+
+        public SilkRenderer(IElementRendererFactory elementRendererFactory)
+        {
+            _elementRendererFactory = elementRendererFactory ?? throw new ArgumentNullException(nameof(elementRendererFactory));
+        }
+
         public void Initialise(nint nativeWindowHandle)
         {
             Console.WriteLine("Renderer Initialised");
@@ -12,7 +19,11 @@ namespace Cardboard.Renderer.Silk
 
         public void Render(IEnumerable<IRenderableElement> elements, double delta)
         {
-            Console.WriteLine("Renderer Render");
+            foreach (var element in elements)
+            {
+                var renderer = _elementRendererFactory.GetElementRenderer(element);
+                renderer.Render(element);
+            }
         }
 
         public void Resize(IEnumerable<IRenderableElement> elements, Size newSize)
