@@ -1,25 +1,13 @@
-using Cardboard.Core.Interfaces;
+using System.Reflection;
+using Cardboard.Core.Factories;
 
 namespace Cardboard.Renderer.Silk.Factories
 {
-    public class SilkElementRendererFactory : IElementRendererFactory
+    public class SilkElementRendererFactory : ElementRendererFactory
     {
-        private Dictionary<Type, IElementRenderer> _renderers { get; set; } = [];
-
-        public SilkElementRendererFactory()
+        protected override Assembly GetTargetAssembly()
         {
-            //  TODO: Populate dictionary with all element renderers in this    
-        }
-        public IElementRenderer GetElementRenderer(IRenderableElement element)
-        {
-            var elementType = element.GetType();
-
-            if (_renderers.TryGetValue(elementType, out var renderer))
-            {
-                return renderer;
-            }
-
-            throw new ArgumentOutOfRangeException(nameof(element));
+            return typeof(SilkElementRendererFactory).Assembly;
         }
     }
 }
