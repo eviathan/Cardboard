@@ -33,8 +33,7 @@ namespace Cardboard.Engine
             var window = WindowManager.CreateWindow(string.Empty, 1200, 800, _rootComponent);
             window.Show();
 
-            // Initialize renderer with the native window handle (you'll need to expose this from IWindow)
-            // _renderer.Initialise(window.NativeHandle);
+            Renderer.Initialise(window.NativeHandle);
 
             Console.WriteLine("App stopping...");
             onStop?.Invoke();
