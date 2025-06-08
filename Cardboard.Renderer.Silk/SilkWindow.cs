@@ -87,7 +87,8 @@ namespace Cardboard.Renderer.Silk
 
         private void OnLoad()
         {
-            if (_window is null) return;
+            if (_window is null || _rootComponent is null)
+                return;
 
             #region Code for later
             // NOTE: THIS IS HOW WE INTEROP WITH NATIVE (SPECIFICALLY MAC) WINDOWS CURRENTLY USED TO MAKE WINDOW BORDERLESS
